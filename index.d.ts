@@ -145,11 +145,22 @@ export interface MidiData {
   tracks: Array<MidiEvent[]>;
 }
 
-export function parseMidi(data: ArrayLike<number>): MidiData;
+export interface MidiParseOption {
+  /** encoding of text data */
+  encoding?: string;
+}
+export function parseMidi(
+  data: ArrayLike<number>,
+  opts?: MidiParseOption
+): MidiData;
 
 export interface MidiWriteOption {
-  running?: boolean; //reuse previous eventTypeByte when possible, to compress file
-  useByte9ForNoteOff?: boolean; //use 0x09 for noteOff when velocity is zero
+  /** reuse previous eventTypeByte when possible, to compress file */
+  running?: boolean;
+  /** use 0x09 for noteOff when velocity is zero */
+  useByte9ForNoteOff?: boolean;
+  /** encoding of text data */
+  encoding?: string;
 }
 export function writeMidi(
   data: MidiData,
